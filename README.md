@@ -1,9 +1,8 @@
-# 🎨 Convertidor Universal XML - Adobe Illustrator
+# 🎨 Convertidor Universal XML
 
 [![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey.svg)](https://www.microsoft.com/windows)
-[![Adobe Illustrator](https://img.shields.io/badge/Adobe%20Illustrator-Compatible-orange.svg)](https://www.adobe.com/products/illustrator.html)
 
 > **Convierte automáticamente datos desde Excel, CSV, JSON y otros formatos a archivos XML compatibles con Variables de Adobe Illustrator**
 
