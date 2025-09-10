@@ -3,11 +3,8 @@
 [![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey.svg)](https://www.microsoft.com/windows)
-[![Adobe Illustrator](https://img.shields.io/badge/Adobe%20Illustrator-Compatible-orange.svg)](https://www.adobe.com/products/illustrator.html)
 
 > **Convierte automáticamente datos desde Excel, CSV, JSON y otros formatos a archivos XML compatibles con Variables de Adobe Illustrator**
-
-![Convertidor XML Demo](https://via.placeholder.com/800x400/52a3db/ffffff?text=Convertidor+Universal+XML+Demo)
 
 ## 🚀 Características Principales
 
@@ -20,7 +17,7 @@
 
 ## 📋 Tabla de Contenidos
 
-- [🎨 Convertidor Universal XML - Adobe Illustrator](#-convertidor-universal-xml---adobe-illustrator)
+- [🎨 Convertidor Universal XML](#-convertidor-universal-xml---adobe-illustrator)
   - [🚀 Características Principales](#-características-principales)
   - [📋 Tabla de Contenidos](#-tabla-de-contenidos)
   - [⚡ Inicio Rápido](#-inicio-rápido)
@@ -36,18 +33,19 @@
   - [📄 Licencia](#-licencia)
   - [📞 Contacto](#-contacto)
 
+
 ## ⚡ Inicio Rápido
 
 1. **Descarga** el ejecutable desde [Releases](../../releases)
-2. **Ejecuta** `ConvertidorXML_Adobe.exe`
+2. **Ejecuta** `ConvertidorXML.exe`
 3. **Selecciona** tu archivo de datos (Excel, CSV, etc.)
 4. **Genera** el XML con un click
 5. **Importa** en Adobe Illustrator → Ventana → Variables
 
 ```bash
 # O clona el repositorio para ejecutar desde código fuente
-git clone https://github.com/tu-usuario/convertidor-xml-adobe.git
-cd convertidor-xml-adobe
+git clone https://github.com/tu-usuario/convertidor-xml.git
+cd convertidor-xml
 pip install -r requirements.txt
 python convertidor.py
 ```
@@ -57,16 +55,16 @@ python convertidor.py
 ### 💻 Opción 1: Ejecutable (Recomendado)
 
 1. Ve a [Releases](../../releases)
-2. Descarga `ConvertidorXML_Adobe_v1.0.zip`
-3. Extrae y ejecuta `ConvertidorXML_Adobe.exe`
+2. Descarga `ConvertidorXML_v1.0.zip`
+3. Extrae y ejecuta `ConvertidorXML.exe`
 4. ¡Listo! No necesita instalación
 
 ### 🐍 Opción 2: Desde Código Fuente
 
 ```bash
 # Clonar repositorio
-git clone https://github.com/tu-usuario/convertidor-xml-adobe.git
-cd convertidor-xml-adobe
+git clone https://github.com/tu-usuario/convertidor-xml.git
+cd convertidor-xml
 
 # Instalar dependencias
 pip install -r requirements.txt
@@ -88,7 +86,7 @@ tkinter (incluido en Python)
 
 1. **Abrir Programa**
    ```
-   Doble click en ConvertidorXML_Adobe.exe
+   Doble click en ConvertidorXML.exe
    ```
 
 2. **Seleccionar Archivo**
@@ -328,7 +326,7 @@ Este proyecto está licenciado bajo la Licencia MIT. Ver el archivo [LICENSE](LI
 ```
 MIT License
 
-Copyright (c) 2024 [Tu Nombre]
+Copyright (c) 2024 [Nicolas Vargas Cañon]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files...
@@ -336,10 +334,9 @@ of this software and associated documentation files...
 
 ## 📞 Contacto
 
-**👨‍💻 Desarrollador**: [Tu Nombre]  
-**📧 Email**: tu.email@ejemplo.com  
-**🔗 LinkedIn**: [tu-linkedin](https://linkedin.com/in/tu-perfil)  
-**🐦 Twitter**: [@tu-twitter](https://twitter.com/tu-usuario)
+**👨‍💻 Desarrollador**: [Nicolas Vargas Cañon]  
+**📧 Email**: nv0900nico@gmail.com 
+**🔗 LinkedIn**: [tu-linkedin](www.linkedin.com/in/nicolas-vargas-4b0262186)
 
 ### 🌟 ¿Te gustó el proyecto?
 
@@ -347,9 +344,9 @@ Si este proyecto te resultó útil, ¡considera darle una ⭐ en GitHub!
 
 ### 📈 Estadísticas
 
-![GitHub stars](https://img.shields.io/github/stars/tu-usuario/convertidor-xml-adobe?style=social)
-![GitHub forks](https://img.shields.io/github/forks/tu-usuario/convertidor-xml-adobe?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/tu-usuario/convertidor-xml-adobe?style=social)
+![GitHub stars](https://img.shields.io/github/stars/tu-usuario/convertidor-xml?style=social)
+![GitHub forks](https://img.shields.io/github/forks/tu-usuario/convertidor-xml?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/tu-usuario/convertidor-xml?style=social)
 
 ---
 
