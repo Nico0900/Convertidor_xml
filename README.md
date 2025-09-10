@@ -326,7 +326,7 @@ Este proyecto está licenciado bajo la Licencia MIT. Ver el archivo [LICENSE](LI
 ```
 MIT License
 
-Copyright (c) 2024 [Nicolas Vargas Cañon]
+Copyright (c) 2024 Nicolas Vargas Cañon
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files...
@@ -334,7 +334,7 @@ of this software and associated documentation files...
 
 ## 📞 Contacto
 
-**👨‍💻 Desarrollador**: [Nicolas Vargas Cañon]  
+**👨‍💻 Desarrollador**: Nicolas Vargas Cañon
 **📧 Email**: nv0900nico@gmail.com 
 **🔗 LinkedIn**: [tu-linkedin](www.linkedin.com/in/nicolas-vargas-4b0262186)
 
