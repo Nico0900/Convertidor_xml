@@ -1,0 +1,37 @@
+{
+  "empleados": [
+    {
+      "nombre": "Roberto Silva Navarro",
+      "posicion": "CEO",
+      "experiencia": "15 años"
+    },
+    {
+      "nombre": "Elena Castro Romero",
+      "posicion": "CTO",
+      "experiencia": "12 años"
+    },
+    {
+      "nombre": "David Moreno Jiménez",
+      "posicion": "CFO",
+      "experiencia": "10 años"
+    },
+    {
+      "nombre": "Lucía Pérez Vázquez",
+      "posicion": "CMO",
+      "experiencia": "8 años"
+    },
+    {
+      "nombre": "Javier Ruiz Fernández",
+      "posicion": "COO",
+      "experiencia": "9 años"
+    }
+  ],
+  "departamentos": [
+    "Ejecutivo",
+    "Tecnología",
+    "Finanzas",
+    "Marketing",
+    "Operaciones"
+  ],
+  "empresa": "Ejemplo Corp S.A."
+}

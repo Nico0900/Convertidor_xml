@@ -220,7 +220,7 @@ def crear_ejecutable(script_principal):
     """Crear el archivo ejecutable con configuración optimizada"""
     print("⚙️ Creando ejecutable...")
     
-    nombre_exe = "ConvertidorXML_Adobe"
+    nombre_exe = "ConvertidorXML"
     
     # Comando base de PyInstaller
     comando = [
