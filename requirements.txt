@@ -1,6 +1,10 @@
 # Convertidor Universal XML - Adobe Illustrator
 # Dependencias necesarias para ejecutar la aplicación
 
+# ========================================
+# DEPENDENCIAS DE PRODUCCIÓN
+# ========================================
+
 # Interfaz gráfica (incluida en Python estándar)
 # tkinter - GUI framework (incluido por defecto)
 
@@ -8,17 +12,33 @@
 pandas>=1.3.0
 openpyxl>=3.0.0
 
-# Para crear el ejecutable (desarrollo)
+# ========================================
+# DEPENDENCIAS DE DESARROLLO
+# ========================================
+
+# Para crear el ejecutable
 pyinstaller>=4.5
 
 # Para crear iconos personalizados (opcional)
 Pillow>=8.0.0
 
-# Librerías estándar utilizadas (incluidas en Python)
+# Para testing
+pytest>=7.0.0
+pytest-cov>=3.0.0
+
+# ========================================
+# LIBRERÍAS ESTÁNDAR UTILIZADAS
+# ========================================
+# (Incluidas en Python, no requieren instalación)
+#
 # json - Manejo de archivos JSON
-# csv - Manejo de archivos CSV  
+# csv - Manejo de archivos CSV
 # xml.etree.ElementTree - Parser XML
 # xml.parsers.expat - Validación XML
 # os - Operaciones del sistema
 # sys - Funciones del sistema
+# platform - Detección de plataforma
+# locale - Detección de idioma del sistema
 # pathlib - Manipulación de rutas
+# tkinter - Interfaz gráfica
+# subprocess - Ejecución de comandos del sistema

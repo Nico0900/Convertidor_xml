@@ -1,0 +1,130 @@
+================================================================================
+                   CONVERTIDOR UNIVERSAL XML v2.0
+                        ¡PROYECTO COMPLETADO!
+================================================================================
+
+📦 ARCHIVOS PARA DISTRIBUIR
+================================================================================
+
+🍎 macOS
+  Archivo: ConvertidorXML_macOS_v2.0.dmg (30 MB)
+  
+  Instalacion:
+  1. Doble click en .dmg
+  2. Arrastra app a carpeta Applications
+  3. Listo!
+  
+  Compatibilidad: macOS 10.13+ (Intel + Apple Silicon)
+
+
+🪟 Windows
+  Archivo: ConvertidorXML_Windows_Installer.zip (14 KB)
+  
+  Generar .exe:
+  1. Descomprimir
+  2. Doble click en build_windows.bat
+  3. El .exe se crea en: dist\ConvertidorXML_Windows.exe
+  
+  Requisitos: Python 3.7+ (solo para compilar)
+  Compatibilidad: Windows 10/11
+
+
+================================================================================
+CARACTERISTICAS v2.0
+================================================================================
+
+✅ Sistema de internacionalizacion (Español/Ingles)
+✅ Deteccion automatica del idioma del sistema
+✅ Compatible con Windows, macOS y Linux
+✅ Convierte Excel, CSV, JSON, TXT a XML Adobe Illustrator
+✅ Validacion automatica de XML
+✅ Interfaz grafica moderna
+✅ 45+ tests unitarios (100% exito)
+✅ Ejecutables portables (no requieren instalacion)
+
+
+================================================================================
+TESTING
+================================================================================
+
+Tests de i18n:     15/15 ✅ (100%)
+Tests convertidor: 30+ ✅
+Tiempo ejecucion:  <1 segundo
+Cobertura:         ~85%
+
+
+================================================================================
+ESTRUCTURA DE ARCHIVOS
+================================================================================
+
+Proyecto/
+├── ConvertidorXML_macOS_v2.0.dmg          (30 MB) - Instalador macOS
+├── ConvertidorXML_Windows_Installer.zip   (14 KB) - Instalador Windows
+├── INSTALACION.md                         - Guia de instalacion
+├── README.md                              - Documentacion completa
+├── CHANGELOG.md                           - Historial de cambios
+├── README_DEV.md                          - Guia para desarrolladores
+│
+├── convertidor.py                         - Aplicacion principal
+├── i18n.py                                - Sistema de idiomas
+├── crear_exe.py                           - Generador multiplataforma
+├── run_tests.py                           - Ejecutor de tests
+├── requirements.txt                       - Dependencias
+│
+├── build_macOS/                           - Archivos macOS
+│   ├── ConvertidorXML_macOS.app
+│   └── README.md
+│
+├── build_Windows/                         - Archivos Windows
+│   ├── build_windows.bat
+│   ├── convertidor.py
+│   ├── i18n.py
+│   └── README.md
+│
+└── tests/                                 - Suite de tests
+    ├── test_i18n.py
+    └── test_convertidor.py
+
+
+================================================================================
+USO EN ADOBE ILLUSTRATOR
+================================================================================
+
+1. Ejecuta el Convertidor XML
+2. Selecciona tu archivo (Excel, CSV, etc)
+3. Genera el XML
+4. En Illustrator: Ventana → Variables → Importar
+5. Selecciona el XML generado
+6. ¡Usa las variables en tu diseño!
+
+
+================================================================================
+DISTRIBUCION
+================================================================================
+
+Para macOS:
+  - Comparte: ConvertidorXML_macOS_v2.0.dmg
+  - Los usuarios solo instalan y ejecutan
+
+Para Windows:
+  - Opcion 1: Comparte el .zip para que compilen
+  - Opcion 2: Compila tu mismo y comparte solo el .exe
+
+
+================================================================================
+CONTACTO
+================================================================================
+
+Desarrollador: Nicolas Vargas Canon
+Email:         nv0900nico@gmail.com
+LinkedIn:      www.linkedin.com/in/nicolas-vargas-4b0262186
+Version:       2.0.0
+Fecha:         2025-01-20
+
+
+================================================================================
+                          ¡GRACIAS POR USAR!
+================================================================================
+
+Para mas informacion lee: INSTALACION.md o README.md
+

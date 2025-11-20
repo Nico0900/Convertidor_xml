@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Script automatizado para crear ejecutable del Convertidor XML Adobe Illustrator
+Compatible con Windows, macOS y Linux
 Ejecutar: python crear_exe.py
 """
 
@@ -9,14 +10,17 @@ import subprocess
 import sys
 import os
 import shutil
+import platform
 from pathlib import Path
 
 def mostrar_banner():
     """Mostrar banner inicial"""
+    sistema = platform.system()
     print("=" * 70)
     print("🚀 CREADOR DE EJECUTABLE - CONVERTIDOR XML ADOBE ILLUSTRATOR")
     print("=" * 70)
-    print("📁 Convierte tu aplicación Python en un archivo .exe")
+    print(f"💻 Sistema detectado: {sistema}")
+    print("📁 Convierte tu aplicación Python en ejecutable")
     print("💼 Listo para distribuir sin instalar Python")
     print("=" * 70)
     print()
@@ -217,11 +221,24 @@ def limpiar_archivos_anteriores():
     print("✅ Limpieza completada")
 
 def crear_ejecutable(script_principal):
-    """Crear el archivo ejecutable con configuración optimizada"""
+    """Crear el archivo ejecutable con configuración optimizada (multiplataforma)"""
     print("⚙️ Creando ejecutable...")
-    
-    nombre_exe = "ConvertidorXML"
-    
+
+    # Detectar sistema operativo
+    sistema = platform.system()
+    nombre_base = "ConvertidorXML"
+
+    # Ajustar nombre según plataforma
+    if sistema == "Darwin":  # macOS
+        nombre_exe = f"{nombre_base}_macOS"
+        print("🍎 Creando aplicación para macOS")
+    elif sistema == "Windows":
+        nombre_exe = f"{nombre_base}_Windows"
+        print("🪟 Creando ejecutable para Windows")
+    else:  # Linux
+        nombre_exe = f"{nombre_base}_Linux"
+        print("🐧 Creando ejecutable para Linux")
+
     # Comando base de PyInstaller
     comando = [
         sys.executable, "-m", "PyInstaller",
@@ -233,10 +250,13 @@ def crear_ejecutable(script_principal):
         "--optimize=2",                 # Optimización máxima
     ]
     
-    # Agregar icono si existe
-    if os.path.exists("icono.ico"):
+    # Agregar icono si existe (solo Windows)
+    if sistema == "Windows" and os.path.exists("icono.ico"):
         comando.extend(["--icon=icono.ico"])
         print("🎨 Icono personalizado agregado")
+    elif sistema == "Darwin" and os.path.exists("icono.icns"):
+        comando.extend(["--icon=icono.icns"])
+        print("🎨 Icono personalizado agregado (macOS)")
     
     # Librerías específicas que pueden necesitar importación explícita
     librerias_ocultas = [
@@ -303,10 +323,24 @@ def crear_ejecutable(script_principal):
         print(f"❌ Error en PyInstaller: {e}")
         return False
 
-def verificar_ejecutable(nombre_exe="ConvertidorXML_Adobe"):
-    """Verificar que el ejecutable se creó correctamente"""
-    ruta_exe = Path("dist") / f"{nombre_exe}.exe"
-    
+def verificar_ejecutable(nombre_base="ConvertidorXML"):
+    """Verificar que el ejecutable se creó correctamente (multiplataforma)"""
+    sistema = platform.system()
+
+    # Determinar extensión según plataforma
+    if sistema == "Windows":
+        extension = ".exe"
+        nombre_completo = f"{nombre_base}_Windows{extension}"
+    elif sistema == "Darwin":
+        extension = ".app"  # macOS crea .app o ejecutable sin extensión
+        nombre_completo = f"{nombre_base}_macOS"
+    else:  # Linux
+        extension = ""
+        nombre_completo = f"{nombre_base}_Linux"
+
+    # Buscar el ejecutable
+    ruta_exe = Path("dist") / nombre_completo
+
     if ruta_exe.exists():
         tamaño = ruta_exe.stat().st_size / (1024*1024)  # MB
         print(f"✅ Ejecutable creado: {ruta_exe.name}")
@@ -315,10 +349,11 @@ def verificar_ejecutable(nombre_exe="ConvertidorXML_Adobe"):
         return True
     else:
         print("❌ No se encontró el ejecutable en dist/")
-        # Buscar otros archivos .exe
-        archivos_exe = list(Path("dist").glob("*.exe"))
-        if archivos_exe:
-            print(f"📁 Archivos encontrados en dist/: {[f.name for f in archivos_exe]}")
+        # Buscar todos los archivos en dist/
+        if Path("dist").exists():
+            archivos = list(Path("dist").iterdir())
+            if archivos:
+                print(f"📁 Archivos encontrados en dist/: {[f.name for f in archivos]}")
         return False
 
 def crear_documentacion():
@@ -421,34 +456,58 @@ pause
         print("⚠️ No se pudo crear el instalador")
 
 def mostrar_resumen_final():
-    """Mostrar resumen final y instrucciones"""
+    """Mostrar resumen final y instrucciones (multiplataforma)"""
+    sistema = platform.system()
+
     print("\n" + "=" * 70)
     print("🎉 ¡EJECUTABLE CREADO EXITOSAMENTE!")
     print("=" * 70)
     print()
     print("📦 ARCHIVOS GENERADOS:")
-    print("   📁 dist/ConvertidorXML_Adobe.exe    (Programa principal)")
-    print("   📋 dist/LEEME.txt                   (Instrucciones)")
-    print("   ⚙️  dist/Instalar.bat               (Instalador automático)")
-    if os.path.exists("dist/icono.ico"):
-        print("   🎨 dist/icono.ico                   (Icono personalizado)")
+
+    if sistema == "Windows":
+        print("   📁 dist/ConvertidorXML_Windows.exe  (Programa principal)")
+        print("   📋 dist/LEEME.txt                   (Instrucciones)")
+        print("   ⚙️  dist/Instalar.bat               (Instalador automático)")
+        if os.path.exists("dist/icono.ico"):
+            print("   🎨 dist/icono.ico                   (Icono personalizado)")
+    elif sistema == "Darwin":
+        print("   📁 dist/ConvertidorXML_macOS        (Aplicación macOS)")
+        print("   📋 dist/LEEME.txt                   (Instrucciones)")
+    else:  # Linux
+        print("   📁 dist/ConvertidorXML_Linux        (Ejecutable Linux)")
+        print("   📋 dist/LEEME.txt                   (Instrucciones)")
+
     print()
     print("🚀 PARA DISTRIBUIR:")
     print("   1. Comparte toda la carpeta 'dist'")
-    print("   2. O solo el archivo ConvertidorXML_Adobe.exe")
-    print("   3. Los usuarios pueden ejecutar Instalar.bat para instalación automática")
+    print("   2. O solo el archivo ejecutable")
+
+    if sistema == "Windows":
+        print("   3. Los usuarios pueden ejecutar Instalar.bat para instalación automática")
+
     print()
     print("✅ CARACTERÍSTICAS:")
     print("   • No requiere instalar Python")
-    print("   • Compatible con Windows 10/11")
+    print(f"   • Compatible con {sistema}")
     print("   • Interfaz gráfica intuitiva")
     print("   • Soporte para múltiples formatos")
     print("   • Optimizado para Adobe Illustrator")
+    print("   • Multilenguaje (Español/Inglés)")
     print()
     print("🔧 PARA PROBAR:")
     print("   1. Ve a la carpeta 'dist'")
-    print("   2. Ejecuta ConvertidorXML_Adobe.exe")
-    print("   3. Debería abrir la interfaz gráfica")
+
+    if sistema == "Windows":
+        print("   2. Ejecuta ConvertidorXML_Windows.exe")
+    elif sistema == "Darwin":
+        print("   2. Ejecuta ./ConvertidorXML_macOS")
+        print("   3. O abre ConvertidorXML_macOS.app si se creó")
+    else:
+        print("   2. Ejecuta ./ConvertidorXML_Linux")
+        print("   3. (Puede necesitar: chmod +x ConvertidorXML_Linux)")
+
+    print("   4. Debería abrir la interfaz gráfica")
     print()
 
 def main():

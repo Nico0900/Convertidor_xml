@@ -1,0 +1,77 @@
+================================================================================
+    CONVERTIDOR UNIVERSAL XML - INSTRUCCIONES PARA WINDOWS
+================================================================================
+
+COMPILAR EL EJECUTABLE (RECOMENDADO)
+------------------------------------
+
+1. Instalar Python (si no lo tienes):
+   - Descarga: https://www.python.org/downloads/
+   - Durante instalación: marca "Add Python to PATH"
+
+2. Compilar:
+   - Doble click en: build_windows.bat
+   - Espera 1-2 minutos
+   - El ejecutable se crea en: dist\ConvertidorXML_Windows.exe
+
+3. Usar:
+   - Copia ConvertidorXML_Windows.exe donde quieras
+   - Doble click para ejecutar
+   - ¡No necesita Python instalado!
+
+
+EJECUTAR DESDE PYTHON (ALTERNATIVA)
+------------------------------------
+
+Si prefieres ejecutar sin compilar:
+
+1. Abrir CMD en esta carpeta
+2. Ejecutar:
+   pip install -r requirements.txt
+   python convertidor.py
+
+
+CARACTERÍSTICAS
+---------------
+
+✓ Interfaz en Español/Inglés (automático según tu Windows)
+✓ Convierte Excel, CSV, JSON, TXT a XML
+✓ Compatible con Adobe Illustrator Variables
+✓ Validación automática
+✓ Portable (el .exe no necesita instalación)
+
+
+USAR EN ADOBE ILLUSTRATOR
+--------------------------
+
+1. Generar XML con el convertidor
+2. En Illustrator: Ventana → Variables
+3. Click en "Importar"
+4. Seleccionar el XML generado
+5. ¡Listo!
+
+
+PROBLEMAS COMUNES
+-----------------
+
+• "Python no reconocido"
+  → Instala Python y marca "Add to PATH"
+
+• "El .exe no abre"
+  → Click derecho → Propiedades → Desbloquear
+  → O agrega excepción en antivirus
+
+• "pip no funciona"
+  → Ejecuta: python -m pip install --upgrade pip
+
+
+SOPORTE
+-------
+
+Email: nv0900nico@gmail.com
+LinkedIn: www.linkedin.com/in/nicolas-vargas-4b0262186
+
+
+================================================================================
+Versión 2.0.0 - Compatible con Windows 10/11
+================================================================================

@@ -6,34 +6,43 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 import os
 import sys
+import platform
+from i18n import get_i18n
 
 class XMLConverterApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Convertidor Universal a XML - Adobe Illustrator")
+
+        # Inicializar sistema de i18n
+        self.i18n = get_i18n()
+
+        self.root.title(self.i18n.get('app_title'))
         self.root.geometry("600x800")
         self.root.resizable(True, True)
         self.root.minsize(650, 550)
-        
+
         # Variables
         self.input_file = tk.StringVar()
         self.output_file = tk.StringVar(value="variables_illustrator.xml")
         self.var_name = tk.StringVar(value="NOMBRE2")
         self.binding_name = tk.StringVar(value="binding1")
         self.selected_column = tk.StringVar()
-        
+
+        # Detectar sistema operativo
+        self.os_platform = platform.system()  # 'Darwin' para macOS, 'Windows', 'Linux'
+
         self.setup_ui()
         
     def setup_ui(self):
         # Título principal
         title_frame = ttk.Frame(self.root, padding="10")
         title_frame.pack(fill="x")
-        
-        title_label = ttk.Label(title_frame, text="Convertidor Universal a XML", 
+
+        title_label = ttk.Label(title_frame, text=self.i18n.get('app_title').split(' - ')[0],
                                font=("Arial", 16, "bold"))
         title_label.pack()
-        
-        subtitle_label = ttk.Label(title_frame, text="Para Variables de Adobe Illustrator", 
+
+        subtitle_label = ttk.Label(title_frame, text=self.i18n.get('app_subtitle'),
                                   font=("Arial", 10))
         subtitle_label.pack()
         
@@ -42,74 +51,66 @@ class XMLConverterApp:
         main_frame.pack(fill="both", expand=True)
         
         # Sección de archivos soportados
-        support_frame = ttk.LabelFrame(main_frame, text="Formatos Soportados", padding="10")
+        support_frame = ttk.LabelFrame(main_frame, text=self.i18n.get('supported_formats'), padding="10")
         support_frame.pack(fill="x", pady=(0, 15))
-        
-        support_text = """📁 Formatos de archivo compatibles:
-• Excel (.xlsx, .xls) - Hojas de cálculo
-• CSV (.csv) - Valores separados por comas
-• TXT (.txt) - Archivos de texto plano (línea por línea)
-• JSON (.json) - Archivos JSON con arrays o objetos
-• TSV (.tsv) - Valores separados por tabulaciones
-• RAW (.raw, .data) - Datos en texto plano"""
-        
-        support_label = ttk.Label(support_frame, text=support_text, 
+
+        support_label = ttk.Label(support_frame, text=self.i18n.get('formats_text'),
                                  font=("Consolas", 9), justify="left")
         support_label.pack(anchor="w")
         
         # Selección de archivo
-        file_frame = ttk.LabelFrame(main_frame, text="Seleccionar Archivo", padding="10")
+        file_frame = ttk.LabelFrame(main_frame, text=self.i18n.get('select_file'), padding="10")
         file_frame.pack(fill="x", pady=(0, 15))
-        
+
         file_path_frame = ttk.Frame(file_frame)
         file_path_frame.pack(fill="x")
-        
-        ttk.Label(file_path_frame, text="Archivo:").pack(side="left")
+
+        ttk.Label(file_path_frame, text=self.i18n.get('file_label')).pack(side="left")
         file_entry = ttk.Entry(file_path_frame, textvariable=self.input_file, width=50)
         file_entry.pack(side="left", padx=(10, 10), fill="x", expand=True)
-        
-        browse_btn = ttk.Button(file_path_frame, text="Buscar", 
+
+        browse_btn = ttk.Button(file_path_frame, text=self.i18n.get('browse'),
                                command=self.browse_file, width=10)
         browse_btn.pack(side="right")
         
         # Marco de configuración
-        config_frame = ttk.LabelFrame(main_frame, text="Configuración", padding="10")
+        config_frame = ttk.LabelFrame(main_frame, text=self.i18n.get('configuration'), padding="10")
         config_frame.pack(fill="x", pady=(0, 15))
-        
+
         # Selección de columna
         col_frame = ttk.Frame(config_frame)
         col_frame.pack(fill="x", pady=(0, 10))
-        
-        ttk.Label(col_frame, text="Columna de datos:", width=15).pack(side="left")
-        self.column_combo = ttk.Combobox(col_frame, textvariable=self.selected_column, 
+
+        ttk.Label(col_frame, text=self.i18n.get('data_column'), width=15).pack(side="left")
+        self.column_combo = ttk.Combobox(col_frame, textvariable=self.selected_column,
                                         state="readonly", width=30)
         self.column_combo.pack(side="left", padx=(10, 0))
-        
-        auto_btn = ttk.Button(col_frame, text="Auto-detectar", 
+
+        auto_btn = ttk.Button(col_frame, text=self.i18n.get('auto_detect'),
                              command=self.auto_detect_column, width=12)
         auto_btn.pack(side="right")
         
         # Configuración XML
         xml_config_frame = ttk.Frame(config_frame)
         xml_config_frame.pack(fill="x", pady=(10, 0))
-        
+
         # Variable name
         var_frame = ttk.Frame(xml_config_frame)
         var_frame.pack(fill="x", pady=(0, 5))
-        ttk.Label(var_frame, text="Variable XML:", width=15).pack(side="left")
+        ttk.Label(var_frame, text=self.i18n.get('xml_variable'), width=15).pack(side="left")
         ttk.Entry(var_frame, textvariable=self.var_name, width=20).pack(side="left", padx=(10, 0))
-        
+
         # Binding name
         binding_frame = ttk.Frame(xml_config_frame)
         binding_frame.pack(fill="x", pady=(0, 5))
-        ttk.Label(binding_frame, text="Binding name:", width=15).pack(side="left")
+        ttk.Label(binding_frame, text=self.i18n.get('binding_name'), width=15).pack(side="left")
         ttk.Entry(binding_frame, textvariable=self.binding_name, width=20).pack(side="left", padx=(10, 0))
-        
+
         # Archivo de salida
         output_frame = ttk.Frame(config_frame)
         output_frame.pack(fill="x", pady=(10, 0))
-        
-        ttk.Label(output_frame, text="Archivo XML:", width=15).pack(side="left")
+
+        ttk.Label(output_frame, text=self.i18n.get('xml_file'), width=15).pack(side="left")
         ttk.Entry(output_frame, textvariable=self.output_file, width=40).pack(side="left", padx=(10, 10), fill="x", expand=True)
         
         # Estado de generación
@@ -119,44 +120,44 @@ class XMLConverterApp:
         # Botones principales
         button_frame = ttk.Frame(main_frame)
         button_frame.pack(fill="x", pady=(15, 10))
-        
-        convert_btn = ttk.Button(button_frame, text="📄 GENERAR ARCHIVO XML", 
-                                command=self.convert_file, 
+
+        convert_btn = ttk.Button(button_frame, text=self.i18n.get('generate_xml'),
+                                command=self.convert_file,
                                 style="Accent.TButton", width=25)
         convert_btn.pack(side="left", padx=(0, 10))
-        
-        preview_btn = ttk.Button(button_frame, text="👁 Vista Previa", 
+
+        preview_btn = ttk.Button(button_frame, text=self.i18n.get('preview'),
                                command=self.preview_data, width=15)
         preview_btn.pack(side="left", padx=(0, 10))
-        
-        validate_btn = ttk.Button(button_frame, text="✓ Validar XML", 
+
+        validate_btn = ttk.Button(button_frame, text=self.i18n.get('validate'),
                                  command=self.validate_xml, width=15)
         validate_btn.pack(side="left")
-        
+
         # Botón para abrir carpeta
-        open_folder_btn = ttk.Button(button_frame, text="📁 Abrir Carpeta", 
+        open_folder_btn = ttk.Button(button_frame, text=self.i18n.get('open_folder'),
                                     command=self.open_output_folder, width=15)
         open_folder_btn.pack(side="right")
         
         # Área de log más compacta
-        log_frame = ttk.LabelFrame(main_frame, text="Estado y Mensajes", padding="5")
+        log_frame = ttk.LabelFrame(main_frame, text=self.i18n.get('status_messages'), padding="5")
         log_frame.pack(fill="both", expand=True, pady=(10, 0))
-        
+
         # Crear el área de texto con scrollbar
         text_frame = ttk.Frame(log_frame)
         text_frame.pack(fill="both", expand=True)
-        
-        self.log_text = tk.Text(text_frame, height=6, font=("Consolas", 9), 
+
+        self.log_text = tk.Text(text_frame, height=6, font=("Consolas", 9),
                                wrap="word", state="disabled")
         scrollbar = ttk.Scrollbar(text_frame, orient="vertical", command=self.log_text.yview)
         self.log_text.configure(yscrollcommand=scrollbar.set)
-        
+
         self.log_text.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
-        
+
         # Log inicial
-        self.log("🚀 Convertidor Universal XML iniciado")
-        self.log("📝 Selecciona un archivo para comenzar")
+        self.log(self.i18n.get('app_started'))
+        self.log(self.i18n.get('select_file_start'))
     
     def update_status(self, message, color="black"):
         """Actualizar el estado visual"""
@@ -164,22 +165,30 @@ class XMLConverterApp:
         self.root.update()
     
     def open_output_folder(self):
-        """Abrir la carpeta donde se guarda el XML"""
+        """Abrir la carpeta donde se guarda el XML (compatible con Windows/macOS/Linux)"""
         output_path = self.output_file.get()
         if output_path:
             folder_path = os.path.dirname(os.path.abspath(output_path))
             if os.path.exists(folder_path):
-                if sys.platform == "win32":
-                    os.startfile(folder_path)
-                elif sys.platform == "darwin":
-                    os.system(f"open '{folder_path}'")
-                else:
-                    os.system(f"xdg-open '{folder_path}'")
-                self.log(f"📁 Carpeta abierta: {folder_path}")
+                try:
+                    if self.os_platform == "Windows":
+                        os.startfile(folder_path)
+                    elif self.os_platform == "Darwin":  # macOS
+                        import subprocess
+                        subprocess.run(["open", folder_path], check=True)
+                    else:  # Linux y otros
+                        import subprocess
+                        subprocess.run(["xdg-open", folder_path], check=True)
+                    self.log(self.i18n.get('folder_opened', path=folder_path))
+                except Exception as e:
+                    messagebox.showerror(self.i18n.get('error'),
+                                       f"Error opening folder: {str(e)}")
             else:
-                messagebox.showwarning("Advertencia", "La carpeta no existe")
+                messagebox.showwarning(self.i18n.get('warning'),
+                                     self.i18n.get('folder_not_exist'))
         else:
-            messagebox.showwarning("Advertencia", "No hay archivo de salida especificado")
+            messagebox.showwarning(self.i18n.get('warning'),
+                                 self.i18n.get('no_output_file'))
     
     def log(self, message):
         """Agregar mensaje al log"""
@@ -209,7 +218,7 @@ class XMLConverterApp:
         
         if filename:
             self.input_file.set(filename)
-            self.log(f"📁 Archivo seleccionado: {os.path.basename(filename)}")
+            self.log(self.i18n.get('file_selected', filename=os.path.basename(filename)))
             self.analyze_file()
     
     def analyze_file(self):
@@ -217,24 +226,24 @@ class XMLConverterApp:
         file_path = self.input_file.get()
         if not file_path:
             return
-            
+
         try:
-            self.log("🔍 Analizando archivo...")
+            self.log(self.i18n.get('analyzing_file'))
             data = self.load_file_data(file_path)
-            
+
             if isinstance(data, pd.DataFrame):
                 columns = list(data.columns)
                 self.column_combo['values'] = columns
-                self.log(f"📊 Columnas encontradas: {len(columns)}")
-                self.log(f"📝 Filas de datos: {len(data)}")
-                
+                self.log(self.i18n.get('columns_found', count=len(columns)))
+                self.log(self.i18n.get('data_rows', count=len(data)))
+
                 # Auto-detectar mejor columna
                 self.auto_detect_column()
             else:
-                self.log("❌ No se pudo analizar la estructura del archivo")
-                
+                self.log(self.i18n.get('analysis_error'))
+
         except Exception as e:
-            self.log(f"❌ Error al analizar: {str(e)}")
+            self.log(self.i18n.get('error_analyzing', error=str(e)))
     
     def load_file_data(self, file_path):
         """Cargar datos según el tipo de archivo"""
@@ -286,10 +295,10 @@ class XMLConverterApp:
                 return pd.DataFrame({'data': lines})
             
             else:
-                raise ValueError(f"Formato de archivo no soportado: {file_ext}")
-                
+                raise ValueError(self.i18n.get('unsupported_format', ext=file_ext))
+
         except Exception as e:
-            raise Exception(f"Error cargando archivo: {str(e)}")
+            raise Exception(self.i18n.get('file_load_error', error=str(e)))
     
     def auto_detect_column(self):
         """Auto-detectar la mejor columna para datos"""
@@ -328,35 +337,37 @@ class XMLConverterApp:
             
             if best_column:
                 self.selected_column.set(best_column)
-                self.log(f"🎯 Auto-detectado: '{best_column}' ({max_text_score:.1%} contenido textual)")
-            
+                self.log(self.i18n.get('auto_detected', column=best_column, score=max_text_score))
+
         except Exception as e:
-            self.log(f"❌ Error en auto-detección: {str(e)}")
+            self.log(self.i18n.get('auto_detect_error', error=str(e)))
     
     def preview_data(self):
         """Mostrar vista previa de los datos"""
         try:
             file_path = self.input_file.get()
             column = self.selected_column.get()
-            
+
             if not file_path or not column:
-                messagebox.showwarning("Advertencia", "Selecciona archivo y columna primero")
+                messagebox.showwarning(self.i18n.get('warning'),
+                                     self.i18n.get('select_file_column'))
                 return
-            
+
             data = self.load_file_data(file_path)
             values = data[column].dropna().head(10).tolist()
-            
-            preview_text = "Vista previa (primeros 10 elementos):\n\n"
+
+            preview_text = self.i18n.get('preview_header')
             for i, value in enumerate(values, 1):
                 preview_text += f"{i:2d}. {str(value)[:50]}{'...' if len(str(value)) > 50 else ''}\n"
-            
+
             if len(data[column].dropna()) > 10:
-                preview_text += f"\n... y {len(data[column].dropna()) - 10} elementos más"
-            
-            messagebox.showinfo("Vista Previa", preview_text)
-            
+                preview_text += self.i18n.get('preview_more', count=len(data[column].dropna()) - 10)
+
+            messagebox.showinfo(self.i18n.get('preview_title'), preview_text)
+
         except Exception as e:
-            messagebox.showerror("Error", f"Error en vista previa: {str(e)}")
+            messagebox.showerror(self.i18n.get('error'),
+                               self.i18n.get('preview_error', error=str(e)))
     
     def convert_file(self):
         """Convertir archivo a XML con la arquitectura exacta de Adobe Illustrator"""
@@ -367,50 +378,51 @@ class XMLConverterApp:
             output_path = self.output_file.get()
             var_name = self.var_name.get()
             binding_name = self.binding_name.get()
-            
+
             if not all([file_path, column, output_path, var_name, binding_name]):
-                messagebox.showwarning("Advertencia", "Completa todos los campos")
+                messagebox.showwarning(self.i18n.get('warning'),
+                                     self.i18n.get('complete_all_fields'))
                 return
-            
-            self.log("🔄 Iniciando conversión...")
-            self.update_status("🔄 Generando archivo XML...", "blue")
-            
+
+            self.log(self.i18n.get('starting_conversion'))
+            self.update_status(self.i18n.get('generating_xml'), "blue")
+
             # Cargar datos
             data = self.load_file_data(file_path)
             values = data[column].dropna().tolist()
-            
-            self.log(f"📊 Procesando {len(values)} elementos")
-            
+
+            self.log(self.i18n.get('processing_elements', count=len(values)))
+
             # Generar XML con la arquitectura exacta del archivo muestra
             xml_content = self.generate_adobe_xml(values, var_name, binding_name)
-            
+
             # Guardar archivo
             with open(output_path, 'w', encoding='utf-8') as f:
                 f.write(xml_content)
-            
-            self.log("✅ ¡Conversión completada!")
-            self.log(f"💾 Archivo guardado: {output_path}")
-            self.log(f"📈 Datasets creados: {len(values)}")
-            self.update_status(f"✅ ¡XML GENERADO EXITOSAMENTE! ({len(values)} elementos)", "green")
-            
+
+            self.log(self.i18n.get('conversion_complete'))
+            self.log(self.i18n.get('file_saved', path=output_path))
+            self.log(self.i18n.get('datasets_created', count=len(values)))
+            self.update_status(self.i18n.get('xml_generated', count=len(values)), "green")
+
             # Validar automáticamente
             self.validate_xml()
-            
+
             # Mensaje de confirmación más visible
-            result = messagebox.askyesno("¡Éxito!", 
-                                       f"¡Archivo XML generado correctamente!\n\n"
-                                       f"📁 Archivo: {os.path.basename(output_path)}\n"
-                                       f"📊 Elementos: {len(values)}\n"
-                                       f"📍 Ubicación: {os.path.dirname(os.path.abspath(output_path))}\n\n"
-                                       f"¿Deseas abrir la carpeta donde se guardó?")
-            
+            result = messagebox.askyesno(self.i18n.get('success'),
+                                       self.i18n.get('success_message',
+                                                    filename=os.path.basename(output_path),
+                                                    count=len(values),
+                                                    location=os.path.dirname(os.path.abspath(output_path))))
+
             if result:
                 self.open_output_folder()
-                
+
         except Exception as e:
-            self.log(f"❌ Error en conversión: {str(e)}")
-            self.update_status("❌ Error al generar XML", "red")
-            messagebox.showerror("Error", f"Error en la conversión:\n{str(e)}")
+            self.log(self.i18n.get('conversion_error', error=str(e)))
+            self.update_status(self.i18n.get('xml_generation_error'), "red")
+            messagebox.showerror(self.i18n.get('error'),
+                               self.i18n.get('conversion_error', error=str(e)))
     
     def generate_adobe_xml(self, values, var_name, binding_name):
         """Generar XML con la arquitectura exacta de Adobe Illustrator"""
@@ -483,38 +495,40 @@ class XMLConverterApp:
     def validate_xml(self):
         """Validar el archivo XML generado"""
         output_path = self.output_file.get()
-        
+
         if not os.path.exists(output_path):
-            messagebox.showwarning("Advertencia", "No hay archivo XML para validar")
+            messagebox.showwarning(self.i18n.get('warning'),
+                                 self.i18n.get('no_xml_validate'))
             return
-        
+
         try:
             with open(output_path, 'r', encoding='utf-8') as f:
                 xml_content = f.read()
-            
+
             # Validación básica - intentar parsear el XML
             from xml.parsers.expat import ParserCreate
-            
+
             def start_element(name, attrs):
                 pass
             def end_element(name):
                 pass
             def char_data(data):
                 pass
-            
+
             parser = ParserCreate()
             parser.StartElementHandler = start_element
             parser.EndElementHandler = end_element
             parser.CharacterDataHandler = char_data
-            
+
             parser.Parse(xml_content, True)
-            
-            self.log("✅ XML validado correctamente")
-            messagebox.showinfo("Validación", "✅ El archivo XML es válido para Adobe Illustrator")
-            
+
+            self.log(self.i18n.get('xml_validated'))
+            messagebox.showinfo(self.i18n.get('validate'), self.i18n.get('xml_valid'))
+
         except Exception as e:
-            self.log(f"❌ Error de validación XML: {e}")
-            messagebox.showerror("Error de Validación", f"XML inválido:\n{str(e)}")
+            self.log(self.i18n.get('xml_validation_error', error=str(e)))
+            messagebox.showerror(self.i18n.get('error'),
+                               self.i18n.get('xml_invalid', error=str(e)))
 
 def main():
     # Crear ventana principal
